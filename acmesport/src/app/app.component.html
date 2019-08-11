@@ -1,21 +1,84 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<section class="main_banner">
+  <div class="container">
+    <h1 class="text-center">Acme Sports</h1>
+  </div>
+</section>
+<section class="mt-5">
+  <div class="container">
+    <h2 class="text-center">Team Data</h2>
+    <button (click)="onDisplayModeChange(1)"
+    [ngClass]="{'btn-primary active': displayMode === 1}">
+    Grid view
+  </button>
+  <button (click)="onDisplayModeChange(2)"
+  [ngClass]="{'btn-primary active': displayMode === 2}">
+List view
+  </button>
+<div *ngIf="displayMode===1" class="container mt-5">
+  <div class="row">
+    <div class="col-sm-4">
+    <div class="form-group">
+        <label for="ascSort">Ascending Sort:</label>
+        <select class="form-control" id="ascSort" (change)="sort_asc($event.target.value)">
+            <option *ngFor="let columns of values">{{columns}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    <div class="form-group">
+        <label for="ascSort">Descending Sort:</label>
+        <select class="form-control" id="ascSort" (change)="sort_desc($event.target.value)">
+            <option *ngFor="let columns of values">{{columns}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-6" *ngFor='let team of teamData | paginate: { itemsPerPage: 8, currentPage: p }'>
+        <div class="card mt-4">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+            <div class="container text-center">
+              <h3 class="">{{team.name}}</h3>
+               <p>Region: {{team.display_name}}</p>
+              <p class="">Division: {{team.division}}</p> 
+            </div>
+            <div class="card_overlay">
+                <div class="card_overlay_image">
+                  <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="img-fluid">
+                </div>
+                <div class="card_overlay_detail text-center">
+                  <h4>{{team.nickname}}</h4>
+                  <p>{{team.conference}} | {{team.division}}</p>
+                </div>
+              </div>
+          </div>
+          
+    </div>
+    <div class="mt-5">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  </div>
+</div>
+<div *ngIf="displayMode===2" class="container mt-5">
+  <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let columns of values">{{columns}} <span class="sort" (click)="sort_asc(columns)"> &#9660; </span><span class="sort" (click)="sort_desc(columns)"> &#9650; </span> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let team of teamData">
+          <td>{{team.name}}</td>
+          <td>{{team.nickname}}</td>
+          <td>{{team.display_name}}</td>
+          <td>{{team.id}}</td>
+          <td>{{team.conference}}</td>
+          <td>{{team.division}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  </div>
+</section>
 <router-outlet></router-outlet>
