@@ -1,0 +1,22 @@
+{
+  "name": "acmeserver",
+  "version": "1.0.0",
+  "description": "express node js server to host angular app on heroku",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shahaadesh5/resulta-challenge.git"
+  },
+  "author": "Aadesh Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shahaadesh5/resulta-challenge/issues"
+  },
+  "homepage": "https://github.com/shahaadesh5/resulta-challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
