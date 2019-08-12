@@ -6,6 +6,7 @@
 <section class="mt-5">
   <div class="container">
     <h2 class="text-center">Team Data</h2>
+  <!-- buttons to switch display modes between grids and lists -->
     <button (click)="onDisplayModeChange(1)"
     [ngClass]="{'btn-primary active': displayMode === 1}">
     Grid view
@@ -14,6 +15,7 @@
   [ngClass]="{'btn-primary active': displayMode === 2}">
 List view
   </button>
+  <!-- Grid View -->
 <div *ngIf="displayMode===1" class="container mt-5">
   <div class="row">
     <div class="col-sm-4">
@@ -35,6 +37,7 @@ List view
   </div>
 
   <div class="row">
+    <!-- Traversing through Team data to display each record in grid fashion. ngx-pagination is used to create pagination for grid items. Ref.: https://www.npmjs.com/package/ngx-pagination -->
     <div class="col-md-3 col-sm-6 col-xs-6" *ngFor='let team of teamData | paginate: { itemsPerPage: 8, currentPage: p }'>
         <div class="card mt-4">
             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
@@ -43,6 +46,7 @@ List view
                <p>Region: {{team.display_name}}</p>
               <p class="">Division: {{team.division}}</p> 
             </div>
+            <!-- Hover overlay animation. Check CSS -->
             <div class="card_overlay">
                 <div class="card_overlay_image">
                   <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="img-fluid">
@@ -60,14 +64,17 @@ List view
   </div>
   </div>
 </div>
+<!-- List View -->
 <div *ngIf="displayMode===2" class="container mt-5">
   <table class="table">
       <thead>
         <tr>
+          <!-- Traversing through column names for table headers. Also binding is provided for sort methods with respective column names -->
           <th *ngFor="let columns of values">{{columns}} <span class="sort" (click)="sort_asc(columns)"> &#9660; </span><span class="sort" (click)="sort_desc(columns)"> &#9650; </span> </th>
         </tr>
       </thead>
       <tbody>
+          <!-- Traversing through Team data to display each record in tabular fashion. -->
         <tr *ngFor="let team of teamData">
           <td>{{team.name}}</td>
           <td>{{team.nickname}}</td>

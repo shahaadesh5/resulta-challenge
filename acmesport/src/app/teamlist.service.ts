@@ -9,6 +9,6 @@ export class TeamlistService {
   constructor(private http: HttpClient) { }
 
   getTeams(){
-    return this.http.get('https://acme-sport-php.herokuapp.com/');
+    return this.http.get('https://acme-sport-php.herokuapp.com/'); // calling the re-routed php service API to fetch all the records
   }
 }
